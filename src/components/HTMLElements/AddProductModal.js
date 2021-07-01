@@ -6,7 +6,15 @@ class AddProductModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            newItem: {
+                name: "a",
+                category: "a",
+                description: "a",
+                weight: "a",
+                diet: "a",
+                price: "a"
+            }
         }
         this.toggleModal = this.toggleModal.bind(this);
     }
@@ -68,7 +76,7 @@ class AddProductModal extends Component {
                     </div>
                     <div className="modal-buttons-container">
                         <Button text='Cancel' onClick={this.toggleModal} className='addButton'/>
-                        <Button text='Save the item' onClick={this.props.onClick} className='addButton'/>
+                        <Button text='Save the item' onClick={() => {this.props.submit(this.state.newItem)}} className='addButton'/>
                     </div>
                 </Modal>
             </div>
