@@ -9,6 +9,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            oldRow: null,
+            isModalOpen: false,
+
             data: [
                 {
                     "id": "a16627",
@@ -245,28 +248,44 @@ class App extends Component {
                     "price": 1600
                 }
             ],
-            editItemId: null
+            // editItemId: null
         }
+        // this.oldRow = null;
         this.submit = this.submit.bind(this);
+        this.editOnClick = this.editOnClick.bind(this);
+        this.deleteOnClick = this.deleteOnClick.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
     submit(newItem) {
-        newItem.id = this.generateRandomID();
-        this.setState({data: [
-                newItem,
-                ...this.state.data
-            ]}
-        );
+        if(!this.state.oldRow) {
+            newItem.id = this.generateRandomID();
+            this.setState({data: [
+                    newItem,
+                    ...this.state.data
+                ]}
+            );
+        } else {
+            let dataCopy = [...this.state.data];
+            for(let i=0; i < dataCopy.length ;i++) {
+                if(dataCopy[i].id === this.state.oldRow.id) {
+                    dataCopy[i] = newItem;
+                }
+            }
+            this.setState({data: dataCopy});
+            // this.oldRow = null;
+            this.setState({oldRow: null});
+        }
     }
 
-    onClickButton1(row) {
-        this.deleteItem(row.id);
+    deleteOnClick(row) {
+        let dataCopy = this.state.data.filter(item => item.id !== row.id);
+        this.setState({ data: dataCopy});
     }
 
-    deleteItem(id) {
-        let index = this.state.data.find(item => item.id === id);
-        this.setState({ data: this.state.data.slice(0, index+1)
-        })
+    editOnClick(row) {
+        this.setState({oldRow: row});
+        this.toggleModal();
     }
 
     generateRandomID() {
@@ -276,6 +295,12 @@ class App extends Component {
             this.generateRandomID();
         }
         return "a" + randomNumber;
+    }
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
     }
 
     render() {
@@ -358,29 +383,21 @@ class App extends Component {
 
               render: (row) => {
 
-                  const onClickButton2 = () => {
-                      // if(!!row.id) {
-                      //     handleDelete();
-                      // } else {
-                      //     handleCancel();
-                      // }
-                  }
-
-
                   return (
                       <div>
-                          <Button text={'Edit'} onClick={onClickButton2} className='editButton'/>
-                          <Button text={'Delete'} onClick={() => this.onClickButton1(row)} className='deleteButton'/>
+                          <Button text={'Edit'} onClick={() => this.editOnClick(row)} className='editButton'/>
+                          <Button text={'Delete'} onClick={() => this.deleteOnClick(row)} className='deleteButton'/>
                       </div>
                   );
               }
           }
       ];
-        const data = this.state.data;
+        const {data, isModalOpen, oldRow} = this.state;
         return (
               <div className="App">
                   <h1>Garun Menu Table</h1>
-                  <AddProductModal submit={this.submit}/>
+                  <Button text='Add a new item' onClick={this.toggleModal} className='addButton'/>
+                  <AddProductModal toggleModal={this.toggleModal} isOpen={isModalOpen} submit={this.submit} oldItem={oldRow}/>
                   <Table cells={cells} data={data} />
               </div>
         );
