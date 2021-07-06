@@ -4,11 +4,11 @@ import TableRow from "./TableRow";
 class TableBody extends Component {
 
     render() {
-        const cells = this.props.cells;
+        const {cells, data} = this.props;
         return (
             <tbody>
             {
-                this.props.data.map((item, rowIndex) => {
+                data.map((item, rowIndex) => {
                     return (
                         <TableRow key={rowIndex} id={item.id} item={item} cells={cells}/>
                     )

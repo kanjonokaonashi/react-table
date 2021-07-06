@@ -4,7 +4,7 @@
   -moz-box-sizing: border-box;
 }
 body{
-  font-family: Helvetica;
+  font-family: Helvetica, serif ;
   -webkit-font-smoothing: antialiased;
   background: #f2f2f2;
 }
@@ -21,7 +21,7 @@ h2{
 
 .App{
   margin: 10px 70px 70px;
-  box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+  box-shadow: 0 35px 50px rgba( 0, 0, 0, 0.2 );
 }
 
 .fl-table {
@@ -148,15 +148,17 @@ button:first-child:hover {
 
 .modal-buttons-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
-.form-style-2{
+
+
+.form-style-2 {
   max-width: 500px;
   padding: 20px 12px 10px 20px;
   font: 13px Arial, Helvetica, sans-serif;
 }
-.form-style-2-heading{
+.form-style-2-heading {
   font-weight: bold;
   font-style: italic;
   border-bottom: 2px solid #ddd;
@@ -164,24 +166,36 @@ button:first-child:hover {
   font-size: 15px;
   padding-bottom: 3px;
 }
-.form-style-2 label{
+.form-style-2 label {
   display: block;
-  margin: 0px 0px 15px 0px;
+  margin: 0 0 15px 0;
 }
-.form-style-2 label > span{
+.form-style-2 label > span {
   width: 100px;
   font-weight: bold;
   float: left;
   padding-top: 8px;
   padding-right: 5px;
 }
-.form-style-2 span.required{
+
+.form-style-2 label + div {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.form-style-2 span.required {
   color:red;
 }
-.form-style-2 .tel-number-field{
+.form-style-2 .tel-number-field {
   width: 40px;
   text-align: center;
 }
+
+.form-style-2 div > span {
+  margin-left: 0;
+}
+
 .form-style-2 input.input-field, .form-style-2 .select-field{
   width: 48%;
 }

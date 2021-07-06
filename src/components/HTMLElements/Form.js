@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Button from "./Button";
 
 class Form extends Component {
 
@@ -6,141 +7,131 @@ class Form extends Component {
         super(props);
 
         this.state = {
-            error: '',
+            errors: {
+                name: "",
+                description: "",
+                weight: "",
+                price: "",
+            },
         }
+
         this.newItem = {
-            fields: {
-                name: "",
-                category: "breakfast",
-                description: "",
-                weight: 0,
-                diet: "non-vegetarian",
-                price: 0,
-            },
-
-            handleNameChange: (e) => {
-                this.newItem.fields.name = e.target.value.trim();
-            },
-
-            handleCategoryChange: (e) => {
-                this.newItem.fields.category = e.target.value;
-            },
-
-            handleDescriptionChange: (e) => {
-                this.newItem.fields.description = e.target.value.trim();
-            },
-
-            handleWeightChange: (e) => {
-                this.newItem.fields.weight = e.target.value;
-            },
-
-            handleDietChange: (e) => {
-                this.newItem.fields.diet = e.target.value;
-            },
-
-            handlePriceChange: (e) => {
-                this.newItem.fields.price = e.target.value;
-            },
+            name: null,
+            category: "breakfast",
+            description: null,
+            weight: null,
+            diet: "non-vegetarian",
+            price: null,
         }
 
+        if(this.props.selectedRow) {
+            Object.keys(this.props.selectedRow).forEach((field) => {
+                this.newItem[field] = this.props.selectedRow[field];
+            })
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.validateForm =  this.validateForm.bind(this);
         this.submitData =  this.submitData.bind(this);
-        this.isFormValid =  this.isFormValid.bind(this);
     }
 
-    handleChange(fieldName, value) {
-        this.newItem[fieldName] = value
+    handleChange(e) {
+        const {name, value} = e.target;
+        this.newItem[name] = value.trim();
     }
 
-    submitData() {
-        if(this.props.oldItem) {
-            console.log("in submit ")
-            this.newItem.fields = this.props.oldItem;
-            this.props.submit(this.newItem.fields);
-            this.props.toggleModal();
-            this.newItem.fields = {
-                name: "",
-                category: "breakfast",
-                description: "",
-                weight: 0,
-                diet: "non-vegetarian",
-                price: 0,
-            };
-        } else {
-            if(this.isFormValid()) {
-                this.props.submit(this.newItem.fields);
-                this.newItem.fields = {
-                    name: "",
-                    category: "breakfast",
-                    description: "",
-                    weight: 0,
-                    diet: "non-vegetarian",
-                    price: 0,
-                };
-                this.props.toggleModal();
-                if(this.state.error) {
-                    console.log("there was an error");
-                    this.setState({error: ""});
+    validateForm() {
+
+        const errors = this.state.errors;
+        const newItem = this.newItem;
+        let valid = true;
+
+        Object.keys(errors).forEach((field) => {
+
+            if(field === 'name' || field === 'description') {
+                if(!newItem[field] || newItem[field].length === 0) {
+                    errors[field] = (field + ' is not valid');
+                    valid = false;
                 }
             } else {
-                if(!this.state.error) {
-                    this.setState({error: "Please fill in all the information correctly"});
+                if(!newItem[field] || newItem[field] <= 0) {
+                    errors[field] = (field + ' is not valid');
+                    valid = false;
                 }
             }
-        }
+
+        });
+
+        this.setState({errors});
+        return valid;
     }
 
-    isFormValid() {
-        return !(this.newItem.fields.name.trim().length === 0 ||
-            this.newItem.fields.description.trim().length === 0 ||
-            this.newItem.fields.weight <= 0 || this.newItem.fields.price <= 0);
+    submitData(e) {
+        e.preventDefault();
+        if(this.validateForm()) {
+            this.props.submitData(this.newItem);
+        }
     }
 
     render() {
-        const error = this.state.error;
+        const errors = this.state.errors;
         const newItem = this.newItem;
         return (
-            <form action="" method="post">
-                <label htmlFor="field1"><span>Name</span>
-                    <input type="text" className="input-field" name="field1" onChange={newItem.handleNameChange}/>
+            <form onSubmit={this.submitData}>
+                <label htmlFor="name">
+                    <span>Name</span>
+                    <input type="text" className="input-field" defaultValue={newItem.name} name="name" onChange={this.handleChange}/>
                 </label>
-                <label htmlFor="field2">
+                <div>
+                    <span className='error'>{errors.name}</span>
+                </div>
+                <label htmlFor="category">
                     <span>Category</span>
-                    <select name="field2" className="select-field" onChange={newItem.handleCategoryChange}>
+                    <select name="category" className="select-field" defaultValue={newItem.category} onChange={this.handleChange}>
                         <option value="breakfast">Breakfast</option>
                         <option value="appetizers">Appetizers</option>
                         <option value="salads">Salads</option>q
                         <option value="soups">Soups</option>
-                        <option value="meat dishes">Breakfast</option>
-                        <option value="bowls">Appetizers</option>
+                        <option value="meat dishes">Meat Dishes</option>
+                        <option value="bowls">Bowls</option>
                         <option value="pasta">Salads</option>
                         <option value="burger and sandwich">Burger and sandwich</option>
                         <option value="garnish">Garnish</option>
                         <option value="dessert">Dessert</option>
                     </select>
                 </label>
-                <label htmlFor="field3"><span>Description</span>
-                    <textarea name="field3" className="textarea-field" onChange={newItem.handleDescriptionChange}/>
+                <label htmlFor="description">
+                    <span>Description</span>
+                    <textarea name="description" className="textarea-field" defaultValue={newItem.description} onChange={this.handleChange} />
                 </label>
-                <label htmlFor="field4"><span>Weight</span>
-                    <input type="number" className="input-field" name="field4" onChange={newItem.handleWeightChange}/>
+                <div>
+                    <span className='error'>{errors.description}</span>
+                </div>
+                <label htmlFor="weight">
+                    <span>Weight</span>
+                    <input type="number" className="input-field" name="weight" defaultValue={newItem.weight} onChange={this.handleChange}/>
                 </label>
-                <label htmlFor="field5">
+                <div>
+                    <span className='error'>{errors.weight}</span>
+                </div>
+                <label htmlFor="diet">
                     <span>Diet</span>
-                    <select name="field5" className="select-field" onChange={newItem.handleDietChange}>
+                    <select name="diet" className="select-field" defaultValue={newItem.diet} onChange={this.handleChange}>
                         <option value="non-vegetarian">Non-vegetarian</option>
                         <option value="vegetarian">Vegetarian</option>
                         <option value="vegan">Vegan</option>
                     </select>
                 </label>
-                <label htmlFor="field6"><span>Price</span>
-                    <input type="number" className="input-field" name="field6" onChange={newItem.handlePriceChange}/>
+                <label htmlFor="price">
+                    <span>Price</span>
+                    <input type="number" className="input-field" name="price" defaultValue={newItem.price} onChange={this.handleChange}/>
                 </label>
                 <div>
-                    <span className='error'>{error}</span>
+                    <span className="error">{errors.price}</span>
                 </div>
+                <br/>
+                <Button text="Save"  className="addButton"/>
             </form>
-
-
         )
     }
 }

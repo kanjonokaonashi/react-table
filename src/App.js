@@ -2,14 +2,16 @@ import './App.css';
 import Table from './components/Table';
 import React, {Component} from "react";
 import Button from "./components/HTMLElements/Button";
-import AddProductModal from "./components/HTMLElements/AddProductModal";
+import FormModal from "./components/HTMLElements/FormModal";
 
 
 class App extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
-            oldRow: null,
+            selectedRow: null,
             isModalOpen: false,
 
             data: [
@@ -248,34 +250,26 @@ class App extends Component {
                     "price": 1600
                 }
             ],
-            // editItemId: null
         }
-        // this.oldRow = null;
         this.submit = this.submit.bind(this);
         this.editOnClick = this.editOnClick.bind(this);
         this.deleteOnClick = this.deleteOnClick.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.edit = this.edit.bind(this);
     }
 
     submit(newItem) {
-        if(!this.state.oldRow) {
-            newItem.id = this.generateRandomID();
-            this.setState({data: [
-                    newItem,
-                    ...this.state.data
-                ]}
-            );
-        } else {
-            let dataCopy = [...this.state.data];
-            for(let i=0; i < dataCopy.length ;i++) {
-                if(dataCopy[i].id === this.state.oldRow.id) {
-                    dataCopy[i] = newItem;
-                }
-            }
-            this.setState({data: dataCopy});
-            // this.oldRow = null;
-            this.setState({oldRow: null});
-        }
+       if(newItem.id) {
+           this.edit(newItem);
+       } else {
+           newItem.id = this.generateRandomID();
+           this.setState({data: [
+                   newItem,
+                   ...this.state.data
+               ]}
+           );
+           this.toggleModal();
+       }
     }
 
     deleteOnClick(row) {
@@ -284,7 +278,18 @@ class App extends Component {
     }
 
     editOnClick(row) {
-        this.setState({oldRow: row});
+        this.setState({selectedRow: row});
+        this.toggleModal();
+    }
+
+    edit(newItem) {
+        let dataCopy = [...this.state.data];
+            for(let i=0; i < dataCopy.length; i++) {
+                if(dataCopy[i].id === this.state.selectedRow.id) {
+                    dataCopy[i] = newItem;
+                }
+            }
+        this.setState({data: dataCopy});
         this.toggleModal();
     }
 
@@ -392,12 +397,12 @@ class App extends Component {
               }
           }
       ];
-        const {data, isModalOpen, oldRow} = this.state;
+        const {data, isModalOpen, selectedRow} = this.state;
         return (
               <div className="App">
                   <h1>Garun Menu Table</h1>
                   <Button text='Add a new item' onClick={this.toggleModal} className='addButton'/>
-                  <AddProductModal toggleModal={this.toggleModal} isOpen={isModalOpen} submit={this.submit} oldItem={oldRow}/>
+                  <FormModal toggleModal={this.toggleModal} isOpen={isModalOpen} submit={this.submit} selectedRow={selectedRow}/>
                   <Table cells={cells} data={data} />
               </div>
         );
