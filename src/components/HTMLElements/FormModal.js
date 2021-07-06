@@ -3,19 +3,11 @@ import Modal from "react-modal";
 import Button from "./Button";
 import Form from "./Form";
 
-class AddProductModal extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            error: '',
-        }
-    }
+class FormModal extends Component {
 
     render() {
-        const {isOpen, toggleModal} = this.props;
-
+        const {isOpen, toggleModal, selectedRow} = this.props;
+        const modalTitle = selectedRow ? "Edit the product" : "Add a new product";
         return (
             <Modal
                 isOpen={isOpen}
@@ -24,19 +16,15 @@ class AddProductModal extends Component {
                 className="mymodal"
                 overlayClassName="myoverlay"
             >
-                <h2>Add a new product</h2>
-
+                <h2>{modalTitle}</h2>
                 <div className="form-style-2">
-                    <Form />
+                    <Form submitData={this.props.submit} selectedRow={selectedRow}/>
+                    <Button text='Cancel' onClick={toggleModal} className='addButton'/>
                 </div>
 
-                <div className="modal-buttons-container">
-                    <Button text='Cancel' onClick={toggleModal} className='addButton'/>
-                    <Button text='Save the item' onClick={this.submitData} className='addButton'/>
-                </div>
             </Modal>
         )
     }
 }
 
-export default AddProductModal;
+export default FormModal;
