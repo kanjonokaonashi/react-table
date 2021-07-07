@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import propTypes from "prop-types";
 import TableHeader from "./HTMLElements/TableHeader";
 import TableBody from "./HTMLElements/TableBody";
 
@@ -15,6 +16,11 @@ class Table extends Component {
             </div>
         )
     }
+}
+
+Table.propTypes = {
+    cells: propTypes.array.isRequired,
+    data: propTypes.array.isRequired,
 }
 
 export default Table;

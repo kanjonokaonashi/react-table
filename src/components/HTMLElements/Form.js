@@ -1,5 +1,8 @@
 import React, {Component} from "react";
+import propTypes from "prop-types";
 import Button from "./Button";
+import Input from "./Input";
+import Select from "./Select";
 
 class Form extends Component {
 
@@ -25,9 +28,7 @@ class Form extends Component {
         }
 
         if(this.props.selectedRow) {
-            Object.keys(this.props.selectedRow).forEach((field) => {
-                this.newItem[field] = this.props.selectedRow[field];
-            })
+            this.newItem = this.props.selectedRow;
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,6 +39,13 @@ class Form extends Component {
     handleChange(e) {
         const {name, value} = e.target;
         this.newItem[name] = value.trim();
+    }
+
+    submitData(e) {
+        e.preventDefault();
+        if(this.validateForm()) {
+            this.props.submit(this.newItem);
+        }
     }
 
     validateForm() {
@@ -59,18 +67,10 @@ class Form extends Component {
                     valid = false;
                 }
             }
-
         });
 
         this.setState({errors});
         return valid;
-    }
-
-    submitData(e) {
-        e.preventDefault();
-        if(this.validateForm()) {
-            this.props.submitData(this.newItem);
-        }
     }
 
     render() {
@@ -80,60 +80,80 @@ class Form extends Component {
             <form onSubmit={this.submitData}>
                 <label htmlFor="name">
                     <span>Name</span>
-                    <input type="text" className="input-field" defaultValue={newItem.name} name="name" onChange={this.handleChange}/>
+                    <Input
+                        className="input-field"
+                        type="text"
+                        name="name"
+                        defaultValue={newItem.name}
+                        onChange={this.handleChange}
+                    />
                 </label>
                 <div>
                     <span className='error'>{errors.name}</span>
                 </div>
                 <label htmlFor="category">
                     <span>Category</span>
-                    <select name="category" className="select-field" defaultValue={newItem.category} onChange={this.handleChange}>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="appetizers">Appetizers</option>
-                        <option value="salads">Salads</option>q
-                        <option value="soups">Soups</option>
-                        <option value="meat dishes">Meat Dishes</option>
-                        <option value="bowls">Bowls</option>
-                        <option value="pasta">Salads</option>
-                        <option value="burger and sandwich">Burger and sandwich</option>
-                        <option value="garnish">Garnish</option>
-                        <option value="dessert">Dessert</option>
-                    </select>
+                    <Select
+                        className="select-field"
+                        name="category"
+                        defaultValue={newItem.category}
+                        onChange={this.handleChange}
+                        optionsList={['Breakfast', 'Appetizers', 'Salads', 'Soups', 'Meat Dishes', 'Bowls', 'Salads', 'Burger and sandwich', 'Garnish', 'Dessert']}
+                    />
                 </label>
                 <label htmlFor="description">
                     <span>Description</span>
-                    <textarea name="description" className="textarea-field" defaultValue={newItem.description} onChange={this.handleChange} />
+                    <textarea className="textarea-field" name="description" defaultValue={newItem.description} onChange={this.handleChange} />
                 </label>
                 <div>
                     <span className='error'>{errors.description}</span>
                 </div>
                 <label htmlFor="weight">
                     <span>Weight</span>
-                    <input type="number" className="input-field" name="weight" defaultValue={newItem.weight} onChange={this.handleChange}/>
+                    <Input
+                        className="input-field"
+                        name="weight"
+                        type="number"
+                        defaultValue={newItem.weight}
+                        onChange={this.handleChange}
+                    />
                 </label>
                 <div>
                     <span className='error'>{errors.weight}</span>
                 </div>
                 <label htmlFor="diet">
                     <span>Diet</span>
-                    <select name="diet" className="select-field" defaultValue={newItem.diet} onChange={this.handleChange}>
-                        <option value="non-vegetarian">Non-vegetarian</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="vegan">Vegan</option>
-                    </select>
+                    <Select
+                        className="select-field"
+                        name="diet"
+                        defaultValue={newItem.diet}
+                        onChange={this.handleChange}
+                        optionsList={['Non-vegetarian', 'Vegetarian', 'Vegan']}
+                    />
                 </label>
                 <label htmlFor="price">
                     <span>Price</span>
-                    <input type="number" className="input-field" name="price" defaultValue={newItem.price} onChange={this.handleChange}/>
+                    <Input
+                        className="input-field"
+                        name="price"
+                        type="number"
+                        defaultValue={newItem.price}
+                        onChange={this.handleChange}
+                    />
                 </label>
                 <div>
                     <span className="error">{errors.price}</span>
                 </div>
                 <br/>
-                <Button text="Save"  className="addButton"/>
+                <Button className="addButton" text="Save" type="submit" />
             </form>
         )
     }
+}
+
+Form.propTypes = {
+    submit: propTypes.func.isRequired,
+    selectedRow: propTypes.object,
 }
 
 export default Form;

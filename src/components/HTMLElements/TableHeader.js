@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import propTypes from "prop-types";
 
 class TableHeader extends Component {
 
@@ -16,6 +17,10 @@ class TableHeader extends Component {
             </thead>
         );
     }
+}
+
+TableHeader.propTypes = {
+    cells: propTypes.array.isRequired,
 }
 
 export default TableHeader;

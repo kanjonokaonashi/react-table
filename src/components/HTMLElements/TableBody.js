@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import TableRow from "./TableRow";
+import propTypes from "prop-types";
 
 class TableBody extends Component {
 
     render() {
         const {cells, data} = this.props;
+
         return (
             <tbody>
             {
@@ -17,6 +19,11 @@ class TableBody extends Component {
             </tbody>
         )
     }
+}
+
+TableBody.propTypes = {
+    cells: propTypes.array.isRequired,
+    data: propTypes.array.isRequired,
 }
 
 export default TableBody;

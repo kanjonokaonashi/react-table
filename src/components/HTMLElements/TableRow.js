@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import propTypes from "prop-types";
 
 class TableRow extends Component {
 
@@ -14,6 +15,11 @@ class TableRow extends Component {
             </tr>
         )
     }
+}
+
+TableRow.propTypes = {
+    cells: propTypes.array.isRequired,
+    item: propTypes.object.isRequired,
 }
 
 export default TableRow;

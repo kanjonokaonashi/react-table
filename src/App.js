@@ -259,17 +259,17 @@ class App extends Component {
     }
 
     submit(newItem) {
-       if(newItem.id) {
-           this.edit(newItem);
-       } else {
-           newItem.id = this.generateRandomID();
-           this.setState({data: [
-                   newItem,
-                   ...this.state.data
-               ]}
-           );
-           this.toggleModal();
-       }
+        if(newItem.id) {
+            this.edit(newItem);
+        } else {
+            newItem.id = this.generateRandomID();
+            this.setState({data: [
+                    newItem,
+                    ...this.state.data
+                ]}
+            );
+            this.toggleModal();
+        }
     }
 
     deleteOnClick(row) {
@@ -282,15 +282,24 @@ class App extends Component {
         this.toggleModal();
     }
 
-    edit(newItem) {
+    edit(newItem) { //cloning all objects with spread operator
+
         let dataCopy = [...this.state.data];
-            for(let i=0; i < dataCopy.length; i++) {
-                if(dataCopy[i].id === this.state.selectedRow.id) {
-                    dataCopy[i] = newItem;
-                }
+
+        for(let i=0; i < dataCopy.length; i++) {
+            if(dataCopy[i].id === this.state.selectedRow.id) {
+                dataCopy[i] = newItem;
             }
+        }
+
         this.setState({data: dataCopy});
         this.toggleModal();
+    }
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
     }
 
     generateRandomID() {
@@ -302,109 +311,103 @@ class App extends Component {
         return "a" + randomNumber;
     }
 
-    toggleModal() {
-        this.setState({
-            isModalOpen: !this.state.isModalOpen
-        });
-    }
-
     render() {
         const cells = [
-          {
-              name: 'Name',
-              key: 'name',
-              type: 'text',
-              render: function(row) {
-                  return (
-                      <span>
+            {
+                name: 'Name',
+                key: 'name',
+                type: 'text',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Category',
-              key: 'category',
-              type: 'text',
-              render: function(row) {
-                  return (
-                      <span>
+                    );
+                }
+            },
+            {
+                name: 'Category',
+                key: 'category',
+                type: 'text',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Description',
-              key: 'description',
-              type: 'text',
-              render: function(row) {
-                  return (
-                      <span>
+                    );
+                }
+            },
+            {
+                name: 'Description',
+                key: 'description',
+                type: 'text',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Weight',
-              key: 'weight',
-              type: 'number',
-              render: function(row) {
-                  return (
-                      <span>
+                    );
+                }
+            },
+            {
+                name: 'Weight',
+                key: 'weight',
+                type: 'number',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Diet',
-              key: 'diet',
-              type: 'text',
-              render: function(row) {
-                  return (
-                      <span>
+                    );
+                }
+            },
+            {
+                name: 'Diet',
+                key: 'diet',
+                type: 'text',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Price',
-              key: 'price',
-              type: 'number',
-              render: function(row) {
-                  return (
-                      <span>
+                    );
+                }
+            },
+            {
+                name: 'Price',
+                key: 'price',
+                type: 'number',
+                render: function(row) {
+                    return (
+                        <span>
                         {row[this.key]}
                     </span>
-                  );
-              }
-          },
-          {
-              name: 'Controls',
-              key: 'controls',
+                    );
+                }
+            },
+            {
+                name: 'Controls',
+                key: 'controls',
 
-              render: (row) => {
+                render: (row) => {
 
-                  return (
-                      <div>
-                          <Button text={'Edit'} onClick={() => this.editOnClick(row)} className='editButton'/>
-                          <Button text={'Delete'} onClick={() => this.deleteOnClick(row)} className='deleteButton'/>
-                      </div>
-                  );
-              }
-          }
-      ];
+                    return (
+                        <div>
+                            <Button text={'Edit'} onClick={() => this.editOnClick(row)} className='editButton'/>
+                            <Button text={'Delete'} onClick={() => this.deleteOnClick(row)} className='deleteButton'/>
+                        </div>
+                    );
+                }
+            }
+        ];
         const {data, isModalOpen, selectedRow} = this.state;
         return (
-              <div className="App">
-                  <h1>Garun Menu Table</h1>
-                  <Button text='Add a new item' onClick={this.toggleModal} className='addButton'/>
-                  <FormModal toggleModal={this.toggleModal} isOpen={isModalOpen} submit={this.submit} selectedRow={selectedRow}/>
-                  <Table cells={cells} data={data} />
-              </div>
+            <div className="App">
+                <h1>Garun Menu Table</h1>
+                <Button text='Add a new item' onClick={this.toggleModal} className='addButton'/>
+                <FormModal toggleModal={this.toggleModal} isOpen={isModalOpen} submit={this.submit} selectedRow={selectedRow}/>
+                <Table cells={cells} data={data} />
+            </div>
         );
     }
 }
