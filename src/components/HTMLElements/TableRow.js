@@ -1,21 +1,36 @@
-import React, {Component} from "react";
+import React from "react";
 import propTypes from "prop-types";
 
-class TableRow extends Component {
+const TableRow = (props) => {
 
-    render() {
-        const {cells, item} = this.props;
-        return (
-            <tr>
-                {
-                    cells.map((obj) => {
-                        return <td key={obj.key}>{obj.render(item)}</td>
-                    })
-                }
-            </tr>
-        )
-    }
+    const {cells, item} = props;
+
+    return (
+        <tr>
+            {
+                cells.map((obj) => {
+                    return <td key={obj.key}>{obj.render(item)}</td>
+                })
+            }
+        </tr>
+    )
 }
+
+// class TableRow extends Component {
+//
+//     render() {
+//         const {cells, item} = this.props;
+//         return (
+//             <tr>
+//                 {
+//                     cells.map((obj) => {
+//                         return <td key={obj.key}>{obj.render(item)}</td>
+//                     })
+//                 }
+//             </tr>
+//         )
+//     }
+// }
 
 TableRow.propTypes = {
     cells: propTypes.array.isRequired,

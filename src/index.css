@@ -251,6 +251,47 @@ button:first-child:hover {
   color: red
 }
 
+/*TODO TO BE DELETED*/
+
+body {
+  height: 99999px;
+}
+.counterDiv {
+  width: 400px;
+  height: 400px;
+  overflow: scroll;
+  display: block;
+  margin-right: 100px;
+}
+
+.counter {
+  padding: 10px 16px;
+  background: #555;
+  color: #f1f1f1;
+  position: fixed;
+  top: 0;
+  width: inherit;
+}
+
+.counter + .content {
+  padding-top: 102px;
+}
+
+#randomExButton {
+  display: inline-block;
+  padding: 10px 10px;
+  margin: 0 1em 1em 0;
+  border-radius: 0.5em;
+  border-color: currentColor;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  background-color: #394447;
+}
+
 /* Responsive */
 
 @media (max-width: 767px) {

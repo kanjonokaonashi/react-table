@@ -1,25 +1,42 @@
-import React, {Component} from "react";
+import React from "react";
 import TableRow from "./TableRow";
 import propTypes from "prop-types";
 
-class TableBody extends Component {
+const TableBody = (props) => {
 
-    render() {
-        const {cells, data} = this.props;
+    const {cells, data} = props;
 
-        return (
-            <tbody>
-            {
-                data.map((item, rowIndex) => {
-                    return (
-                        <TableRow key={rowIndex} id={item.id} item={item} cells={cells}/>
-                    )
-                })
-            }
-            </tbody>
-        )
-    }
+    return (
+        <tbody>
+        {
+            data.map((item, rowIndex) => {
+                return (
+                    <TableRow key={rowIndex} id={item.id} item={item} cells={cells}/>
+                )
+            })
+        }
+        </tbody>
+    )
 }
+
+// class TableBody extends Component {
+//
+//     render() {
+//         const {cells, data} = this.props;
+//
+//         return (
+//             <tbody>
+//             {
+//                 data.map((item, rowIndex) => {
+//                     return (
+//                         <TableRow key={rowIndex} id={item.id} item={item} cells={cells}/>
+//                     )
+//                 })
+//             }
+//             </tbody>
+//         )
+//     }
+// }
 
 TableBody.propTypes = {
     cells: propTypes.array.isRequired,

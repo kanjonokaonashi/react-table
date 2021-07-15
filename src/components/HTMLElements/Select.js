@@ -7,7 +7,7 @@ const Select = (props) => {
     return (
         <select className={className} name={name}  defaultValue={defaultValue} onChange={onChange}>
             {
-                optionsList.map((option) => <option value={option}>{option}</option>)
+                optionsList.map((option, index) => <option value={option} key={index}>{option}</option>)
             }
         </select>
     )

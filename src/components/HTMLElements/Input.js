@@ -19,7 +19,6 @@ Input.propTypes = {
     className: propTypes.string,
     type: propTypes.string,
     name: propTypes.string,
-    defaultValue: propTypes.string,
     onChange: propTypes.func,
 }
 
