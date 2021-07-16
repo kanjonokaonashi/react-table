@@ -109,18 +109,14 @@ button:first-child:hover {
   background-color: #FCFCD4;
 }
 
-/*input {*/
-/*  font-family: 'Roboto', sans-serif;*/
-/*  color: #333;*/
-/*  !*font-size: 1.2rem;*!*/
-/*  padding: 0.5rem 1rem;*/
-/*  border-radius: 0.2rem;*/
-/*  background-color: rgb(255, 255, 255);*/
-/*  border: none;*/
-/*  width: 90%;*/
-/*  display: block;*/
-/*  border-bottom: 0.3rem solid transparent;*/
-/*  transition: all 0.3s;*/
+.description-text {
+  resize: none;
+  border: none;
+  font: inherit;
+}
+
+/*.description-span {*/
+/*  overflow-wrap: break-word;*/
 /*}*/
 
 .mymodal {
@@ -253,44 +249,44 @@ button:first-child:hover {
 
 /*TODO TO BE DELETED*/
 
-body {
-  height: 99999px;
-}
-.counterDiv {
-  width: 400px;
-  height: 400px;
-  overflow: scroll;
-  display: block;
-  margin-right: 100px;
-}
+/*body {*/
+/*  height: 99999px;*/
+/*}*/
+/*.counterDiv {*/
+/*  width: 400px;*/
+/*  height: 400px;*/
+/*  overflow: scroll;*/
+/*  display: block;*/
+/*  margin-right: 100px;*/
+/*}*/
 
-.counter {
-  padding: 10px 16px;
-  background: #555;
-  color: #f1f1f1;
-  position: fixed;
-  top: 0;
-  width: inherit;
-}
+/*.counter {*/
+/*  padding: 10px 16px;*/
+/*  background: #555;*/
+/*  color: #f1f1f1;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  width: inherit;*/
+/*}*/
 
-.counter + .content {
-  padding-top: 102px;
-}
+/*.counter + .content {*/
+/*  padding-top: 102px;*/
+/*}*/
 
-#randomExButton {
-  display: inline-block;
-  padding: 10px 10px;
-  margin: 0 1em 1em 0;
-  border-radius: 0.5em;
-  border-color: currentColor;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  color: #FFFFFF;
-  text-align: center;
-  background-color: #394447;
-}
+/*#randomExButton {*/
+/*  display: inline-block;*/
+/*  padding: 10px 10px;*/
+/*  margin: 0 1em 1em 0;*/
+/*  border-radius: 0.5em;*/
+/*  border-color: currentColor;*/
+/*  box-sizing: border-box;*/
+/*  text-decoration: none;*/
+/*  font-family: 'Roboto', sans-serif;*/
+/*  font-weight: 300;*/
+/*  color: #FFFFFF;*/
+/*  text-align: center;*/
+/*  background-color: #394447;*/
+/*}*/
 
 /* Responsive */
 

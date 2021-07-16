@@ -5,35 +5,21 @@ import TableBody from "./HTMLElements/TableBody";
 
 const Table = (props) => {
 
-    const {cells, data} = props;
+    const {cells} = props;
+
     return (
         <div>
             <table className='fl-table'>
                 <TableHeader cells={cells}/>
-                <TableBody cells={cells} data={data} />
+                <TableBody cells={cells} /* data={data}*/ />
             </table>
         </div>
     )
 }
 
-// class Table extends Component {
-//
-//     render() {
-//         const {cells, data} = this.props;
-//         return (
-//             <div>
-//                 <table className='fl-table'>
-//                     <TableHeader cells={cells}/>
-//                     <TableBody cells={cells} data={data} />
-//                 </table>
-//             </div>
-//         )
-//     }
-// }
-
 Table.propTypes = {
     cells: propTypes.array.isRequired,
-    data: propTypes.array.isRequired,
+    // data: propTypes.array.isRequired,
 }
 
 export default Table;

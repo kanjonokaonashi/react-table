@@ -5,10 +5,10 @@ export const loadAction = (isLoading) => {
     }
 }
 
-export const addAction = (item) => {
+export const loadDataAction = (data) => {
     return {
-        type: 'ADD',
-        payload: item,
+        type: 'LOADDATA',
+        payload: data,
     }
 }
 

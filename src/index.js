@@ -6,9 +6,12 @@ import {createStore} from "redux";
 import dataReducer from "./reducers/dataReducer";
 import { Provider} from "react-redux";
 
-const store = createStore(dataReducer);
+const store = createStore(
+    dataReducer, /* preloadedState, */
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-store.subscribe(() => console.log("heyy " ,store.getState()));
+store.subscribe(() => console.log("listening to store changes, the state of the store is -> " ,store.getState()));
 
 ReactDOM.render(
     <React.StrictMode>
