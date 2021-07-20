@@ -1,12 +1,10 @@
 import React from "react";
-import TableRow from "./TableRow";
+import TableRow from "../HTMLElements/TableRow";
 import propTypes from "prop-types";
-import {useSelector} from "react-redux";
 
 const TableBody = (props) => {
 
-    const {cells} = props;
-    const data = useSelector(state => state.data);
+    const {cells, data} = props;
 
     return (
         <tbody>
@@ -22,8 +20,7 @@ const TableBody = (props) => {
 }
 
 TableBody.propTypes = {
-    cells: propTypes.array.isRequired,
-    // data: propTypes.array.isRequired,
+    data: propTypes.array.isRequired,
 }
 
 export default TableBody;
