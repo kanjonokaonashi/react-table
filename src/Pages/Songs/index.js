@@ -4,8 +4,9 @@ import Button from "../../components/HTMLElements/Button";
 import FormModal from "../../components/HTMLElements/FormModal";
 import {useDispatch, useSelector} from "react-redux";
 import PageLoader from "../../components/PageLoader";
-import {loadAction, loadDataAction} from "../../store/dataActions";
+import {requestAction} from "./actions";
 import {SPOTIFY_URL, token} from "../../config";
+import songsSaga from "./sagas";
 
 const SongsTable = (props) => {
 
@@ -104,19 +105,13 @@ const SongsTable = (props) => {
 
     const dispatch = useDispatch();
 
-    const data = props.data;
-
     useEffect(() => {
-
+        dispatch(requestAction());
     }, [])
 
-    const handleResponse = response => {
-        // console.log("response ok", response.ok);
-        return response.json().then(json => {
-            return response.ok ? json : Promise.reject(json);
-        });
-    };
+    const data = useSelector(state => state.data);
 
+    const isLoading = useSelector(state => state.isLoading);
     /*
     // not needed now
     function submit(newItem) {
@@ -172,18 +167,14 @@ const SongsTable = (props) => {
 
     return (
         <div className="App">
-            <h1>Studio Ghibli Animes</h1>
+            <h1>My spotify tracks list</h1>
             {/*<Button text='Add a new item' onClick={toggleModal} className='addButton'/>*/}
             {/*<FormModal toggleModal={toggleModal} isOpen={isModalOpen} submit={submit} selectedRow={selectedRow}/>*/}
-            {/*{
-                (function () {
-                    if(isLoading) {
-                        return <PageLoader />
-                    } else {
-                        return <Table cells={cells} data={data} />
-                    }
-                })()
-            }*/}
+            {isLoading ? (
+                <PageLoader />
+            ) : (
+                <Table cells={cells} data={data || []} />
+            )}
         </div>
     );
 }

@@ -1,16 +1,15 @@
-import {FAILURE, REQUEST, SUCCESS} from "./actionsTypeConstants";
+import {FAILURE, REQUEST, SUCCESS} from "../../store/actionsConstants";
 
-export const requestAction = (data) => {
+export const requestAction = () => {
     return {
         type: REQUEST,
-        // payload: data,
     }
 }
 
-export const successAction = (item) => {
+export const successAction = (data) => {
     return {
         type: SUCCESS,
-        payload: item,
+        payload: data,
     }
 }
 

@@ -1,4 +1,4 @@
-import {REQUEST, SUCCESS, FAILURE} from "../../store/actionsTypeConstants";
+import {REQUEST, SUCCESS, FAILURE} from "../../store/actionsConstants";
 
 const reducer = (state = {isLoading: false}, action) => {
     switch(action.type) {
