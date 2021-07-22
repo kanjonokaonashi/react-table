@@ -1,5 +1,5 @@
 import React from "react";
-import TableRow from "../HTMLElements/TableRow";
+import TableRow from "./TableRow";
 import propTypes from "prop-types";
 
 const TableBody = (props) => {

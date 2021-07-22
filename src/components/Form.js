@@ -4,7 +4,7 @@ import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
 
-const Form = (props) => {
+const Form = (props) => { // form is not usable, should be modified
 
     const [errors,setErrors] = useState({
         name: "",

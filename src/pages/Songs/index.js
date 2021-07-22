@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import Table from "../../components/Table/Table";
-import Button from "../../components/HTMLElements/Button";
-import FormModal from "../../components/HTMLElements/FormModal";
+import Table from "../../components/Table";
+import Button from "../../components/Button";
+import FormModal from "../../components/FormModal";
 import {useDispatch, useSelector} from "react-redux";
 import PageLoader from "../../components/PageLoader";
 import {requestAction} from "./actions";
-import {SPOTIFY_URL, token} from "../../config";
-import songsSaga from "./sagas";
 
 const SongsTable = (props) => {
 
@@ -109,9 +107,9 @@ const SongsTable = (props) => {
         dispatch(requestAction());
     }, [])
 
-    const data = useSelector(state => state.data);
+    const data = props.state.data;
 
-    const isLoading = useSelector(state => state.isLoading);
+    const isLoading = props.state.isLoading;
     /*
     // not needed now
     function submit(newItem) {

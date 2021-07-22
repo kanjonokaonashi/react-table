@@ -1,6 +1,7 @@
 import {combineReducers} from "redux";
-import songsReducer from '../Pages/Songs/reducer';
+import songsReducer from '../pages/Songs/reducer';
+import productsReducer from '../pages/Products/reducer';
 
 export const rootReducer = combineReducers({
-    songs: songsReducer,
+    products: productsReducer,
 });

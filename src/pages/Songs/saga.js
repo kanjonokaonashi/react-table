@@ -4,7 +4,7 @@ import {FAILURE, REQUEST, SUCCESS} from "../../store/actionsConstants";
 import {failureAction, successAction} from "./actions";
 
 const SPOTIFY_URL = 'https://api.spotify.com/v1/me';
-const token = "BQBYZFOrbwLiTb-QpcYj8PcND-BBaT1lxdyxpJbRIMZjPH74fUGcu2-Vyxf9H0ar4FbquG5k9_n-ThteeegMcKu8tEx8we9CgU84_WHqLrQvPv44titK6YHY8Prz6MSd2arD231jBaTZSQt3M7kaYgF7rMD63DXXERo9E4cTPVVV2J1mnEmoNmSkgkz3mTD2NsUCQ8OpNm6RKAN5m2HGUgBEfz4rhKTlxlQUN_a9C6PAaa8sNAxDzC3ax6-RqrXaF-zPoSeWOXhaZU-ROQ_pESTeahvvXTC9FngcISKAxGBRMxpb";
+const token = "BQCNTqvRlWft6yqMWpaq2BcAgkYekLt_Ec1udVq-CHS_kXaMUQa78b3piLRyuhEP0Y2WYCJ4X5JD8whFNyyFBrMxr1RpHcPeP3WivwtxtJsUImlrFOfk8xm7ZeqrvFIrjJdOCx4so6HEGjg0ZJhIok5RqeMOr9NU_aFBtJ-NiK47Vjdg3xmlKQXvQvx_tbfedZICuo7xYFlFqUvKX6qpCCBsyVvjcP22SwNOw_ud4-ZNJnA1m1zbF4gTUdY7s08CYLWuWfbeWpyjc2v7nyOb6ANqe_0om2eUtZlMhimA9NDUXN_N";
 const songsEndpoint = "/tracks";
 
 function* getSongs(action) {
@@ -39,6 +39,6 @@ function* deleteSongs(action) {
 
 export function* songsSaga() {
     yield takeLatest(REQUEST, getSongs);
-    yield takeLatest(REQUEST, addSongs);
-    yield takeLatest(REQUEST, deleteSongs);
+    // yield takeLatest(REQUEST, addSongs);
+    // yield takeLatest(REQUEST, deleteSongs);
 }

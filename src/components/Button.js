@@ -11,18 +11,6 @@ const Button = (props) => {
     )
 }
 
-// class Button extends Component {
-//
-//     render() {
-//         const {className, text, onClick = () => {}} = this.props;
-//         return (
-//             <button className={className} onClick={onClick}>
-//                 {text}
-//             </button>
-//         )
-//     }
-// }
-
 Button.propTypes = {
     className: propTypes.string,
     text: propTypes.string.isRequired,
